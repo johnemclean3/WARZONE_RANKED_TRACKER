@@ -1,0 +1,90 @@
+/* Load custom fonts */
+@font-face {
+    font-family: 'Hitmarker Black';
+    src: url('fonts/HitmarkerNormal-Black.ttf') format('truetype');
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: 'Hitmarker Light';
+    src: url('fonts/HitmarkerNormal-Light.ttf') format('truetype');
+    font-weight: 300;
+}
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set background colors */
+body {
+    background-color: #444444; /* lighter charcoal for page content */
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #222222; /* dark charcoal */
+    padding: 10px 6%;
+    z-index: 1000;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav img {
+    width: 500px;
+}
+
+/* Logo text styling */
+.logo-text {
+    font-family: 'Hitmarker Black', sans-serif;
+    font-size: 32px;
+    color: white;
+    text-decoration: none;
+    line-height: 1.1;
+    display: block;
+}
+
+.logo-text:hover{
+    color: #bbbbbb;
+}
+
+/* Nav links */
+.nav-links {
+    font-family: 'Hitmarker Black', sans-serif;
+    text-align: right;
+}
+
+.nav-links ul {
+    list-style: none;
+}
+
+.nav-links ul li {
+    display: inline-block;
+    padding: 0 15px;
+}
+
+.nav-links ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 20px;
+    transition: color 0.3s;
+}
+
+.nav-links ul li a:hover {
+    color: #bbbbbb; /* lighter gray on hover */
+}
+
+/* Add padding so content is not hidden under the fixed navbar */
+.content {
+    padding-top: 80px;
+}
