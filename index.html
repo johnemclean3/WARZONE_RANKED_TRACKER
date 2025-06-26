@@ -1,24 +1,105 @@
 <html>
-    <head>
-        <meta name="viewport" content="with=device-width, initial-scale=1.0">
-        <title>Ranked Tracker</title>
-        <link rel="stylesheet" href="Home.css">
-    </head>
-    <body>
-        <header class="navbar">
-            <nav>
-                <a href="index.html" class="logo-text">WARZONE<br>RANKED TRACKER</a>
-                <div class="nav-links">
-                    <ul>
-                        <li><a href="login.html">ACCOUNT</a></li>
-                    </ul>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ranked Tracker</title>
+    <link rel="stylesheet" href="Home.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <nav>
+        <a href="index.html" class="logo-text">WARZONE<br />RANKED TRACKER</a>
+        <div class="nav-links">
+          <ul>
+            <li><a href="login.html">ACCOUNT</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
 
-                </div>
-            </nav>
-        </header>
-        <section class="content">
+    <section class="content">
+      <div class="tracker-container" id="srTracker">
+        <!-- Rank Display -->
+        <div id="rankDisplay" class="rank-info hidden">
+          <div class="rank-label">RANK</div>
+          <h1 id="rankName" class="rank-name">RANK NAME</h1>
+          <div class="sr-row">
+            <span class="sr-tag">SR</span>
+            <span id="rankSR" class="sr-number">0000</span>
+          </div>
+        </div>
 
-        </section>
+        <!-- Step 1: Set Starting SR -->
+        <div id="setSRSection">
+          <input type="number" id="startingSR" placeholder="Enter Starting SR" />
+          <button onclick="setStartingSR()">Set Starting SR</button>
+        </div>
 
-    </body>
+        <!-- Step 2: SR Adjustment -->
+        <div id="adjustSRSection" class="hidden">
+          <input type="number" id="changeSR" placeholder="Add or Subtract SR" />
+          <button onclick="updateSR()">Update SR</button>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      let currentSR = null;
+
+      function setStartingSR() {
+        const sr = parseInt(document.getElementById("startingSR").value);
+        if (!isNaN(sr)) {
+          currentSR = sr;
+          updateDisplay();
+          localStorage.setItem("sr", sr);
+
+          document.getElementById("setSRSection").classList.add("hidden");
+          document.getElementById("adjustSRSection").classList.remove("hidden");
+          document.getElementById("rankDisplay").classList.remove("hidden");
+        }
+      }
+
+      function updateSR() {
+        const change = parseInt(document.getElementById("changeSR").value);
+        if (!isNaN(change) && currentSR !== null) {
+          currentSR += change;
+          updateDisplay();
+          localStorage.setItem("sr", currentSR);
+        }
+      }
+
+      function updateDisplay() {
+        const rank = getRank(currentSR);
+        const rankNameElem = document.getElementById("rankName");
+        const rankSRElem = document.getElementById("rankSR");
+
+        rankNameElem.textContent = rank.name.toUpperCase();
+        rankNameElem.className = `rank-name ${rank.class}`;
+        rankSRElem.textContent = currentSR;
+
+        document.getElementById("rankDisplay").classList.remove("hidden");
+      }
+
+      function getRank(sr) {
+        if (sr < 900) return { name: "Bronze", class: "bronze" };
+        if (sr < 2100) return { name: "Silver", class: "silver" };
+        if (sr < 3600) return { name: "Gold", class: "gold" };
+        if (sr < 5400) return { name: "Platinum", class: "platinum" };
+        if (sr < 7500) return { name: "Diamond", class: "diamond" };
+        if (sr < 10000) return { name: "Crimson", class: "crimson" };
+        return { name: "Iridescent", class: "iridescent" };
+      }
+
+      window.onload = function () {
+        const savedSR = localStorage.getItem("sr");
+        if (savedSR !== null) {
+          currentSR = parseInt(savedSR);
+          updateDisplay();
+
+          document.getElementById("setSRSection").classList.add("hidden");
+          document.getElementById("adjustSRSection").classList.remove("hidden");
+          document.getElementById("rankDisplay").classList.remove("hidden");
+        }
+      };
+    </script>
+  </body>
 </html>
