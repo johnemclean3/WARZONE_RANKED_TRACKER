@@ -204,3 +204,41 @@ nav img {
 .hidden {
   display: none;
 }
+
+/* Progress Bar Container */
+#progressContainer {
+  margin-top: 15px;
+  text-align: left;
+}
+
+/* Label above progress bar */
+#progressContainer label {
+  font-size: 14px;
+  color: white;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* Progress Bar Style */
+#srProgress {
+  width: 100%;
+  height: 18px;
+  appearance: none;
+  border-radius: 10px;
+  background-color: #555;
+}
+
+#srProgress::-webkit-progress-bar {
+  background-color: #555;
+  border-radius: 10px;
+}
+
+#srProgress::-webkit-progress-value {
+  background-color: #00cc66;
+  border-radius: 10px;
+}
+
+#srProgress::-moz-progress-bar {
+  background-color: #00cc66;
+  border-radius: 10px;
+}
