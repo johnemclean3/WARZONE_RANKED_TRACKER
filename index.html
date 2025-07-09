@@ -80,14 +80,26 @@
       }
 
       function getRank(sr) {
-        if (sr < 900) return { name: "Bronze", class: "bronze" };
-        if (sr < 2100) return { name: "Silver", class: "silver" };
-        if (sr < 3600) return { name: "Gold", class: "gold" };
-        if (sr < 5400) return { name: "Platinum", class: "platinum" };
-        if (sr < 7500) return { name: "Diamond", class: "diamond" };
-        if (sr < 10000) return { name: "Crimson", class: "crimson" };
-        return { name: "Iridescent", class: "iridescent" };
-      }
+  if (sr >= 10000) return { name: "Iridescent", class: "iridescent" };
+  if (sr >= 9100) return { name: "Crimson 3", class: "crimson" };
+  if (sr >= 8300) return { name: "Crimson 2", class: "crimson" };
+  if (sr >= 7500) return { name: "Crimson 1", class: "crimson" };
+  if (sr >= 6800) return { name: "Diamond 3", class: "diamond" };
+  if (sr >= 6100) return { name: "Diamond 2", class: "diamond" };
+  if (sr >= 5400) return { name: "Diamond 1", class: "diamond" };
+  if (sr >= 4800) return { name: "Platinum 3", class: "platinum" };
+  if (sr >= 4200) return { name: "Platinum 2", class: "platinum" };
+  if (sr >= 3600) return { name: "Platinum 1", class: "platinum" };
+  if (sr >= 3100) return { name: "Gold 3", class: "gold" };
+  if (sr >= 2600) return { name: "Gold 2", class: "gold" };
+  if (sr >= 2100) return { name: "Gold 1", class: "gold" };
+  if (sr >= 1700) return { name: "Silver 3", class: "silver" };
+  if (sr >= 1300) return { name: "Silver 2", class: "silver" };
+  if (sr >= 900)  return { name: "Silver 1", class: "silver" };
+  if (sr >= 600)  return { name: "Bronze 3", class: "bronze" };
+  if (sr >= 300)  return { name: "Bronze 2", class: "bronze" };
+  return { name: "Bronze 1", class: "bronze" };
+}
 
       window.onload = function () {
         const savedSR = localStorage.getItem("sr");
