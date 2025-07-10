@@ -17,20 +17,24 @@
     </header>
 
     <section class="content">
-      <div class="tracker-container" id="srTracker">
-        <!-- Rank Display -->
-        <div id="rankDisplay" class="rank-info hidden">
-          <div class="rank-label">RANK</div>
-          <h1 id="rankName" class="rank-name">RANK NAME</h1>
-          <div class="sr-row">
-            <span class="sr-tag">SR</span>
-            <span id="rankSR" class="sr-number">0000</span>
-          </div>
-        </div>
-        <div id="progressContainer" class="hidden">
-          <label id="progressLabel">Progress to Next Rank</label>
-          <progress id="srProgress" value="0" max="100"></progress>
-        </div>
+  <div class="tracker-container" id="srTracker">
+    <!-- Rank Display -->
+    <div id="rankDisplay" class="rank-info hidden">
+      <div class="rank-label">RANK</div>
+      <h1 id="rankName" class="rank-name">RANK NAME</h1>
+      <div class="sr-row">
+        <span class="sr-tag">SR</span>
+        <span id="rankSR" class="sr-number">0000</span>
+      </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div id="progressContainer" class="hidden">
+      <label id="progressLabel">Progress to Next Rank</label>
+      <div class="progress-bar-outer">
+        <div id="srProgressBar" class="progress-bar-inner bronze" style="width: 0%"></div>
+      </div>
+    </div>
 
         <!-- Step 1: Set Starting SR -->
         <div id="setSRSection">
