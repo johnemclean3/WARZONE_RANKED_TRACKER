@@ -68,16 +68,19 @@
       }
 
       function updateDisplay() {
-        const rank = getRank(currentSR);
-        const rankNameElem = document.getElementById("rankName");
-        const rankSRElem = document.getElementById("rankSR");
+  const rank = getRank(currentSR);
+  const rankNameElem = document.getElementById("rankName");
+  const rankSRElem = document.getElementById("rankSR");
 
-        rankNameElem.textContent = rank.name.toUpperCase();
-        rankNameElem.className = `rank-name ${rank.class}`;
-        rankSRElem.textContent = currentSR;
+  rankNameElem.textContent = rank.name.toUpperCase();
+  rankNameElem.className = `rank-name ${rank.class}`;
+  rankSRElem.textContent = currentSR;
 
-        document.getElementById("rankDisplay").classList.remove("hidden");
-      }
+  document.getElementById("rankDisplay").classList.remove("hidden");
+  document.getElementById("progressContainer").classList.remove("hidden");
+
+  updateProgressBar(currentSR);
+}
 
       function getRank(sr) {
   if (sr >= 10000) return { name: "Iridescent", class: "iridescent" };
