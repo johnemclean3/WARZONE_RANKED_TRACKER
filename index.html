@@ -101,6 +101,58 @@
   return { name: "Bronze 1", class: "bronze" };
 }
 
+     function updateProgressBar(sr) {
+  const next = getNextRankThreshold(sr);
+  const current = getCurrentRankMin(sr);
+  const progress = ((sr - current) / (next - current)) * 100;
+
+  document.getElementById("srProgress").value = Math.max(0, Math.min(progress, 100));
+}
+
+function getCurrentRankMin(sr) {
+  if (sr >= 10000) return 10000;
+  if (sr >= 9100) return 9100;
+  if (sr >= 8300) return 8300;
+  if (sr >= 7500) return 7500;
+  if (sr >= 6800) return 6800;
+  if (sr >= 6100) return 6100;
+  if (sr >= 5400) return 5400;
+  if (sr >= 4800) return 4800;
+  if (sr >= 4200) return 4200;
+  if (sr >= 3600) return 3600;
+  if (sr >= 3100) return 3100;
+  if (sr >= 2600) return 2600;
+  if (sr >= 2100) return 2100;
+  if (sr >= 1700) return 1700;
+  if (sr >= 1300) return 1300;
+  if (sr >= 900)  return 900;
+  if (sr >= 600)  return 600;
+  if (sr >= 300)  return 300;
+  return 0;
+}
+
+function getNextRankThreshold(sr) {
+  if (sr < 300) return 300;
+  if (sr < 600) return 600;
+  if (sr < 900) return 900;
+  if (sr < 1300) return 1300;
+  if (sr < 1700) return 1700;
+  if (sr < 2100) return 2100;
+  if (sr < 2600) return 2600;
+  if (sr < 3100) return 3100;
+  if (sr < 3600) return 3600;
+  if (sr < 4200) return 4200;
+  if (sr < 4800) return 4800;
+  if (sr < 5400) return 5400;
+  if (sr < 6100) return 6100;
+  if (sr < 6800) return 6800;
+  if (sr < 7500) return 7500;
+  if (sr < 8300) return 8300;
+  if (sr < 9100) return 9100;
+  if (sr < 10000) return 10000;
+  return 11000;
+} 
+
       window.onload = function () {
         const savedSR = localStorage.getItem("sr");
         if (savedSR !== null) {
