@@ -20,7 +20,7 @@
 
 /* Set background colors */
 body {
-    background-color: #444444; /* lighter charcoal for page content */
+    background-color: #444444;
     color: #ffffff;
     font-family: Arial, sans-serif;
 }
@@ -29,7 +29,7 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: #222222; /* dark charcoal */
+    background-color: #222222;
     padding: 10px 6%;
     z-index: 1000;
 }
@@ -54,7 +54,7 @@ nav img {
     display: block;
 }
 
-.logo-text:hover{
+.logo-text:hover {
     color: #bbbbbb;
 }
 
@@ -81,115 +81,116 @@ nav img {
 }
 
 .nav-links ul li a:hover {
-    color: #bbbbbb; /* lighter gray on hover */
+    color: #bbbbbb;
 }
 
-/* Add padding so content is not hidden under the fixed navbar */
+/* Content padding to account for fixed nav */
 .content {
-  padding-top: 80px;
-  min-height: calc(100vh - 80px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    padding-top: 80px;
+    min-height: calc(100vh - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* SR Tracker Styling */
+/* SR Tracker Container */
 .tracker-container {
-  max-width: 400px;
-  width: 100%;
-  padding: 20px;
-  background-color: #333;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  text-align: center;
+    max-width: 400px;
+    width: 100%;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    text-align: center;
 }
 
 /* Inputs and Buttons */
 .tracker-container input,
 .tracker-container button {
-  width: 100%;
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
 }
 
 .tracker-container input {
-  background-color: #555;
-  color: white;
+    background-color: #555;
+    color: white;
 }
 
 .tracker-container button {
-  background-color: #666666;
-  color: white;
-  font-weight: bold;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+    background-color: #666666;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .tracker-container button:hover {
-  background-color: #888888;
+    background-color: #888888;
 }
 
 /* Big Current SR Display */
 .current-sr {
-  font-size: 32px;
-  font-family: 'Hitmarker Black', sans-serif;
-  color: white;
-  margin-bottom: 20px;
+    font-size: 32px;
+    font-family: 'Hitmarker Black', sans-serif;
+    color: white;
+    margin-bottom: 20px;
 }
 
-/* Hidden class to toggle visibility */
+/* Hidden class */
 .hidden {
-  display: none;
+    display: none;
 }
+
 .rank-info {
-  text-align: center;
-  margin-bottom: 30px;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
 .rank-label {
-  font-size: 12px;
-  color: white;
-  letter-spacing: 2px;
-  font-weight: 600;
-  margin-bottom: 5px;
+    font-size: 12px;
+    color: white;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 5px;
 }
 
 .rank-name {
-  font-size: 36px;
-  font-family: 'Hitmarker Black', sans-serif;
-  font-weight: 900;
-  margin-bottom: 10px;
+    font-size: 36px;
+    font-family: 'Hitmarker Black', sans-serif;
+    font-weight: 900;
+    margin-bottom: 10px;
 }
 
 /* SR display row */
 .sr-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
 /* SR tag box */
 .sr-tag {
-  background-color: white;
-  color: black;
-  font-weight: bold;
-  padding: 4px 10px;
-  border-radius: 4px;
-  font-size: 18px;
-  font-family: 'Hitmarker Black', sans-serif;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 18px;
+    font-family: 'Hitmarker Black', sans-serif;
 }
 
-/* SR number next to tag */
+/* SR number */
 .sr-number {
-  font-size: 20px;
-  color: white;
-  font-weight: 600;
+    font-size: 20px;
+    color: white;
+    font-weight: 600;
 }
 
 /* Rank Colors */
@@ -201,44 +202,44 @@ nav img {
 .crimson { color: #dc143c; }
 .iridescent { color: #ad00ff; }
 
-.hidden {
-  display: none;
-}
-
 /* Progress Bar Container */
 #progressContainer {
-  margin-top: 15px;
-  text-align: left;
+    margin-top: 15px;
+    text-align: left;
+    width: 100%;
 }
 
-/* Label above progress bar */
+/* Progress Bar Label */
 #progressContainer label {
-  font-size: 14px;
-  color: white;
-  margin-bottom: 5px;
-  display: block;
+    font-size: 14px;
+    color: white;
+    margin-bottom: 5px;
+    display: block;
 }
 
 /* Progress Bar Style */
 #srProgress {
-  width: 100%;
-  height: 18px;
-  appearance: none;
-  border-radius: 10px;
-  background-color: #555;
+    width: 100%;
+    height: 18px;
+    appearance: none;
+    background-color: #555;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
+/* WebKit */
 #srProgress::-webkit-progress-bar {
-  background-color: #555;
-  border-radius: 10px;
+    background-color: #555;
+    border-radius: 10px;
 }
 
 #srProgress::-webkit-progress-value {
-  background-color: #00cc66;
-  border-radius: 10px;
+    background-color: #00cc66;
+    border-radius: 10px;
 }
 
+/* Firefox */
 #srProgress::-moz-progress-bar {
-  background-color: #00cc66;
-  border-radius: 10px;
+    background-color: #00cc66;
+    border-radius: 10px;
 }
