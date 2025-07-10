@@ -243,3 +243,20 @@ nav img {
     background-color: #00cc66;
     border-radius: 10px;
 }
+/* Colored progress bar based on rank */
+#srProgress.bronze::-webkit-progress-value { background-color: #cd7f32; }
+#srProgress.silver::-webkit-progress-value { background-color: #c0c0c0; }
+#srProgress.gold::-webkit-progress-value { background-color: #ffd700; }
+#srProgress.platinum::-webkit-progress-value { background-color: #00bfff; }
+#srProgress.diamond::-webkit-progress-value { background-color: #b9f2ff; }
+#srProgress.crimson::-webkit-progress-value { background-color: #dc143c; }
+#srProgress.iridescent::-webkit-progress-value { background-color: #ad00ff; }
+
+/* Firefox support */
+#srProgress.bronze::-moz-progress-bar { background-color: #cd7f32; }
+#srProgress.silver::-moz-progress-bar { background-color: #c0c0c0; }
+#srProgress.gold::-moz-progress-bar { background-color: #ffd700; }
+#srProgress.platinum::-moz-progress-bar { background-color: #00bfff; }
+#srProgress.diamond::-moz-progress-bar { background-color: #b9f2ff; }
+#srProgress.crimson::-moz-progress-bar { background-color: #dc143c; }
+#srProgress.iridescent::-moz-progress-bar { background-color: #ad00ff; }
