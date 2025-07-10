@@ -243,6 +243,7 @@ nav img {
     background-color: #00cc66;
     border-radius: 10px;
 }
+
 /* Colored progress bar based on rank */
 #srProgress.bronze::-webkit-progress-value { background-color: #cd7f32; }
 #srProgress.silver::-webkit-progress-value { background-color: #c0c0c0; }
