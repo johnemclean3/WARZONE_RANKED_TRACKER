@@ -117,23 +117,25 @@ function updateProgressBar(sr) {
   const current = getCurrentRankMin(sr);
   const percent = ((sr - current) / (next - current)) * 100;
 
-  const progress = document.getElementById("srProgress");
+  const progressBar = document.getElementById("srProgressBar");
   const progressContainer = document.getElementById("progressContainer");
 
-  // Remove any existing rank classes
-  progress.classList.remove("bronze", "silver", "gold", "platinum", "diamond", "crimson", "iridescent");
+  // Remove old rank classes
+  progressBar.classList.remove("bronze", "silver", "gold", "platinum", "diamond", "crimson", "iridescent");
 
-  // Apply current rank color
+  // Apply new rank class
   const rank = getRank(sr);
-  progress.classList.add(rank.class);
+  progressBar.classList.add(rank.class);
 
-  // Update bar and make visible
-  progress.value = Math.max(0, Math.min(percent, 100));
-  progressContainer.classList.remove("hidden");
+  // Update width of progress bar
+  progressBar.style.width = `${Math.max(0, Math.min(percent, 100))}%`;
 
-  // Optional: update label to show SR needed
+  // Update label
   const label = document.getElementById("progressLabel");
   label.textContent = `Progress to ${getRank(next).name.toUpperCase()} — Need ${next - sr} SR`;
+
+  // Make sure it's visible
+  progressContainer.classList.remove("hidden");
 }
 
 function getCurrentRankMin(sr) {
