@@ -7,29 +7,30 @@
   <body>
     <header class="navbar">
       <nav>
-        <a href="index.html" class="logo-text">WARZONE<br />RANKED TRACKER</a>
+        <a href="index.html" class="logo-text">
+          <span class="line1">WARZONE</span>
+          <span class="line2">Ranked Tracker</span>
+        </a>
       </nav>
     </header>
 
     <section class="content">
-  <div class="tracker-container" id="srTracker">
-    <!-- Rank Display -->
-    <div id="rankDisplay" class="rank-info hidden">
-      <div class="rank-label">RANK</div>
-      <h1 id="rankName" class="rank-name">RANK NAME</h1>
-      <div class="sr-row">
-        <span class="sr-tag">SR</span>
-        <span id="rankSR" class="sr-number">0000</span>
-      </div>
-    </div>
+      <div class="tracker-container" id="srTracker">
+        <!-- Rank Display -->
+        <div id="rankDisplay" class="rank-info hidden">
+          <div class="rank-label">RANK</div>
+          <h1 id="rankName" class="rank-name">RANK NAME</h1>
+          <div class="sr-row">
+            <span class="sr-tag">SR</span>
+            <span id="rankSR" class="sr-number">0000</span>
+          </div>
+        </div>
 
-    <!-- Progress Bar -->
-    <div id="progressContainer" class="hidden">
-      <label id="progressLabel">Progress to Next Rank</label>
-      <div class="progress-bar-outer">
-        <div id="srProgressBar" class="progress-bar-inner bronze" style="width: 0%"></div>
+        <!-- Progress Bar -->
+      <div id="progressContainer" class="progress-container hidden">
+        <div id="progressBar" class="progress-bar"></div>
       </div>
-    </div>
+      <div id="progressText" class="progress-text hidden">0 SR to next rank</div>
 
         <!-- Step 1: Set Starting SR -->
         <div id="setSRSection">
@@ -41,25 +42,55 @@
         <div id="adjustSRSection" class="hidden">
           <input type="number" id="changeSR" placeholder="Add or Subtract SR" />
           <button onclick="updateSR()">Update SR</button>
+          <button id="resetButton" onclick="resetTracker()" class="hidden">Reset</button>
         </div>
-      </div>
     </section>
 
     <script>
       let currentSR = null;
 
       function setStartingSR() {
-        const sr = parseInt(document.getElementById("startingSR").value);
-        if (!isNaN(sr)) {
-          currentSR = sr;
-          updateDisplay();
-          localStorage.setItem("sr", sr);
+  const sr = parseInt(document.getElementById("startingSR").value);
+  if (!isNaN(sr)) {
+    currentSR = sr;
+    updateDisplay();
+    localStorage.setItem("sr", sr);
 
-          document.getElementById("setSRSection").classList.add("hidden");
-          document.getElementById("adjustSRSection").classList.remove("hidden");
-          document.getElementById("rankDisplay").classList.remove("hidden");
-        }
-      }
+    document.getElementById("setSRSection").classList.add("hidden");
+    document.getElementById("adjustSRSection").classList.remove("hidden");
+    document.getElementById("rankDisplay").classList.remove("hidden");
+    document.getElementById("progressContainer").classList.remove("hidden");
+    document.getElementById("progressText").classList.remove("hidden");
+
+    document.getElementById("resetButton").classList.remove("hidden");
+  }
+}
+
+function resetTracker() {
+  currentSR = null;
+  localStorage.removeItem("sr");
+
+  // Hide elements
+  document.getElementById("adjustSRSection").classList.add("hidden");
+  document.getElementById("rankDisplay").classList.add("hidden");
+  document.getElementById("progressContainer").classList.add("hidden");
+  document.getElementById("progressText").classList.add("hidden");
+
+  // Show initial SR input
+  document.getElementById("setSRSection").classList.remove("hidden");
+
+  // Clear fields
+  document.getElementById("startingSR").value = '';
+  document.getElementById("changeSR").value = '';
+  document.getElementById("rankName").textContent = 'RANK NAME';
+  document.getElementById("rankSR").textContent = '';
+  document.getElementById("progressBar").style.width = '0%';
+  document.getElementById("progressBar").className = 'progress-bar';
+  document.getElementById("progressText").textContent = '0 SR to next rank';
+
+  // Hide reset button
+  document.getElementById("resetButton").classList.add("hidden");
+}
 
       function updateSR() {
         const change = parseInt(document.getElementById("changeSR").value);
@@ -80,102 +111,107 @@
   rankSRElem.textContent = currentSR;
 
   document.getElementById("rankDisplay").classList.remove("hidden");
-  document.getElementById("progressContainer").classList.remove("hidden");
 
-  updateProgressBar(currentSR);
-}
-
-      function getRank(sr) {
-  if (sr >= 10000) return { name: "Iridescent", class: "iridescent" };
-  if (sr >= 9100) return { name: "Crimson 3", class: "crimson" };
-  if (sr >= 8300) return { name: "Crimson 2", class: "crimson" };
-  if (sr >= 7500) return { name: "Crimson 1", class: "crimson" };
-  if (sr >= 6800) return { name: "Diamond 3", class: "diamond" };
-  if (sr >= 6100) return { name: "Diamond 2", class: "diamond" };
-  if (sr >= 5400) return { name: "Diamond 1", class: "diamond" };
-  if (sr >= 4800) return { name: "Platinum 3", class: "platinum" };
-  if (sr >= 4200) return { name: "Platinum 2", class: "platinum" };
-  if (sr >= 3600) return { name: "Platinum 1", class: "platinum" };
-  if (sr >= 3100) return { name: "Gold 3", class: "gold" };
-  if (sr >= 2600) return { name: "Gold 2", class: "gold" };
-  if (sr >= 2100) return { name: "Gold 1", class: "gold" };
-  if (sr >= 1700) return { name: "Silver 3", class: "silver" };
-  if (sr >= 1300) return { name: "Silver 2", class: "silver" };
-  if (sr >= 900)  return { name: "Silver 1", class: "silver" };
-  if (sr >= 600)  return { name: "Bronze 3", class: "bronze" };
-  if (sr >= 300)  return { name: "Bronze 2", class: "bronze" };
-  return { name: "Bronze 1", class: "bronze" };
-}
-
-function updateProgressBar(sr) {
-  const next = getNextRankThreshold(sr);
-  const current = getCurrentRankMin(sr);
-  const percent = ((sr - current) / (next - current)) * 100;
-
-  const progressBar = document.getElementById("srProgressBar");
+  // === Progress Bar Logic ===
+  const nextRank = getNextRankThreshold(currentSR);
+  const prevRank = getPreviousRankThreshold(currentSR);
+  const progress = ((currentSR - prevRank.sr) / (nextRank.sr - prevRank.sr)) * 100;
+  const progressBar = document.getElementById("progressBar");
+  const progressText = document.getElementById("progressText");
   const progressContainer = document.getElementById("progressContainer");
 
-  // Remove old rank classes
-  progressBar.classList.remove("bronze", "silver", "gold", "platinum", "diamond", "crimson", "iridescent");
+  progressBar.style.width = `${Math.min(progress, 100)}%`;
+progressBar.className = `progress-bar ${rank.class}`; // applies background color
 
-  // Apply new rank class
-  const rank = getRank(sr);
-  progressBar.classList.add(rank.class);
+progressContainer.classList.remove("hidden");
 
-  // Update width of progress bar
-  progressBar.style.width = `${Math.max(0, Math.min(percent, 100))}%`;
-
-  // Update label
-  const label = document.getElementById("progressLabel");
-  label.textContent = `Progress to ${getRank(next).name.toUpperCase()} — Need ${next - sr} SR`;
-
-  // Make sure it's visible
-  progressContainer.classList.remove("hidden");
+const srToNext = Math.max(0, nextRank.sr - currentSR);
+progressText.textContent = `${srToNext} SR to ${nextRank.name}`;
+progressText.className = `progress-text`; // white text
+progressText.classList.remove("hidden");
 }
 
-function getCurrentRankMin(sr) {
-  if (sr >= 10000) return 10000;
-  if (sr >= 9100) return 9100;
-  if (sr >= 8300) return 8300;
-  if (sr >= 7500) return 7500;
-  if (sr >= 6800) return 6800;
-  if (sr >= 6100) return 6100;
-  if (sr >= 5400) return 5400;
-  if (sr >= 4800) return 4800;
-  if (sr >= 4200) return 4200;
-  if (sr >= 3600) return 3600;
-  if (sr >= 3100) return 3100;
-  if (sr >= 2600) return 2600;
-  if (sr >= 2100) return 2100;
-  if (sr >= 1700) return 1700;
-  if (sr >= 1300) return 1300;
-  if (sr >= 900)  return 900;
-  if (sr >= 600)  return 600;
-  if (sr >= 300)  return 300;
-  return 0;
-}
-
+// Helper to get next rank
 function getNextRankThreshold(sr) {
-  if (sr < 300) return 300;
-  if (sr < 600) return 600;
-  if (sr < 900) return 900;
-  if (sr < 1300) return 1300;
-  if (sr < 1700) return 1700;
-  if (sr < 2100) return 2100;
-  if (sr < 2600) return 2600;
-  if (sr < 3100) return 3100;
-  if (sr < 3600) return 3600;
-  if (sr < 4200) return 4200;
-  if (sr < 4800) return 4800;
-  if (sr < 5400) return 5400;
-  if (sr < 6100) return 6100;
-  if (sr < 6800) return 6800;
-  if (sr < 7500) return 7500;
-  if (sr < 8300) return 8300;
-  if (sr < 9100) return 9100;
-  if (sr < 10000) return 10000;
-  return 11000;
-} 
+  const thresholds = [
+    { sr: 0, name: "Bronze 1" },
+    { sr: 300, name: "Bronze 2" },
+    { sr: 600, name: "Bronze 3" },
+    { sr: 900, name: "Silver 1" },
+    { sr: 1300, name: "Silver 2" },
+    { sr: 1700, name: "Silver 3" },
+    { sr: 2100, name: "Gold 1" },
+    { sr: 2600, name: "Gold 2" },
+    { sr: 3100, name: "Gold 3" },
+    { sr: 3600, name: "Platinum 1" },
+    { sr: 4200, name: "Platinum 2" },
+    { sr: 4800, name: "Platinum 3" },
+    { sr: 5400, name: "Diamond 1" },
+    { sr: 6100, name: "Diamond 2" },
+    { sr: 6800, name: "Diamond 3" },
+    { sr: 7500, name: "Crimson 1" },
+    { sr: 8300, name: "Crimson 2" },
+    { sr: 9100, name: "Crimson 3" },
+    { sr: 10000, name: "Iridescent" }
+  ];
+
+  for (let i = 0; i < thresholds.length; i++) {
+    if (sr < thresholds[i].sr) return thresholds[i];
+  }
+  return { sr: 10000, name: "MAX RANK" };
+}
+
+function getPreviousRankThreshold(sr) {
+  const thresholds = [
+    { sr: 0, name: "Bronze 1" },
+    { sr: 300, name: "Bronze 2" },
+    { sr: 600, name: "Bronze 3" },
+    { sr: 900, name: "Silver 1" },
+    { sr: 1300, name: "Silver 2" },
+    { sr: 1700, name: "Silver 3" },
+    { sr: 2100, name: "Gold 1" },
+    { sr: 2600, name: "Gold 2" },
+    { sr: 3100, name: "Gold 3" },
+    { sr: 3600, name: "Platinum 1" },
+    { sr: 4200, name: "Platinum 2" },
+    { sr: 4800, name: "Platinum 3" },
+    { sr: 5400, name: "Diamond 1" },
+    { sr: 6100, name: "Diamond 2" },
+    { sr: 6800, name: "Diamond 3" },
+    { sr: 7500, name: "Crimson 1" },
+    { sr: 8300, name: "Crimson 2" },
+    { sr: 9100, name: "Crimson 3" },
+    { sr: 10000, name: "Iridescent" }
+  ];
+
+  for (let i = thresholds.length - 1; i >= 0; i--) {
+    if (sr >= thresholds[i].sr) return thresholds[i];
+  }
+  return { sr: 0, name: "Bronze 1" };
+}
+
+
+      function getRank(sr) {
+        if (sr >= 10000) return { name: "Iridescent", class: "iridescent" };
+        if (sr >= 9100) return { name: "Crimson 3", class: "crimson" };
+        if (sr >= 8300) return { name: "Crimson 2", class: "crimson" };
+        if (sr >= 7500) return { name: "Crimson 1", class: "crimson" };
+        if (sr >= 6800) return { name: "Diamond 3", class: "diamond" };
+        if (sr >= 6100) return { name: "Diamond 2", class: "diamond" };
+        if (sr >= 5400) return { name: "Diamond 1", class: "diamond" };
+        if (sr >= 4800) return { name: "Platinum 3", class: "platinum" };
+        if (sr >= 4200) return { name: "Platinum 2", class: "platinum" };
+        if (sr >= 3600) return { name: "Platinum 1", class: "platinum" };
+        if (sr >= 3100) return { name: "Gold 3", class: "gold" };
+        if (sr >= 2600) return { name: "Gold 2", class: "gold" };
+        if (sr >= 2100) return { name: "Gold 1", class: "gold" };
+        if (sr >= 1700) return { name: "Silver 3", class: "silver" };
+        if (sr >= 1300) return { name: "Silver 2", class: "silver" };
+        if (sr >= 900) return { name: "Silver 1", class: "silver" };
+        if (sr >= 600) return { name: "Bronze 3", class: "bronze" };
+        if (sr >= 300) return { name: "Bronze 2", class: "bronze" };
+        return { name: "Bronze 1", class: "bronze" };
+      }
 
       window.onload = function () {
         const savedSR = localStorage.getItem("sr");
