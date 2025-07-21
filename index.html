@@ -31,7 +31,7 @@
         <div id="progressBar" class="progress-bar"></div>
       </div>
       <div id="progressText" class="progress-text hidden">0 SR to next rank</div>
-
+      <div id="totalSRDisplay" class="progress-text hidden">Total SR Gained: 0</div>
         <!-- Step 1: Set Starting SR -->
         <div id="setSRSection">
           <input type="number" id="startingSR" placeholder="Enter Starting SR" />
@@ -43,7 +43,6 @@
           <input type="number" id="changeSR" placeholder="Add or Subtract SR" />
           <button onclick="updateSR()">Update SR</button>
           <button id="resetButton" onclick="resetTracker()" class="hidden">Reset</button>
-          <p id="totalSRDisplay" style="color: white;">Total SR Gained: 0</p>
         </div>
     </section>
 
