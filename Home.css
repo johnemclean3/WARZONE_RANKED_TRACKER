@@ -215,6 +215,12 @@ nav img {
     font-weight: 600;
 }
 
+#totalSRDisplay {
+  color: white;
+  font-size: 18px;
+  margin-top: 5px;
+}
+
 /* Rank Colors */
 .bronze { color: #cd7f32; }
 .silver { color: #c0c0c0; }
