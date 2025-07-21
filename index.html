@@ -104,12 +104,12 @@ function resetTracker() {
 
       function updateSR() {
         const change = parseInt(document.getElementById("changeSR").value);
-        if (!isNaN(change){
+        if (!isNaN(change)){
           currentSR += change;
           totalSRGained = currentSR - startingSR;
           updateDisplay();
           document.getElementById("changeSR").value = '';
-          document.getElementById("totalSRDisplay").textContent = 'Total SR Gained: ${totalSRGained}';
+          document.getElementById("totalSRDisplay").textContent = `Total SR Gained: ${totalSRGained}`;
         }
       }
 
@@ -226,16 +226,23 @@ function getPreviousRankThreshold(sr) {
       }
 
       window.onload = function () {
-        const savedSR = localStorage.getItem("sr");
-        if (savedSR !== null) {
-          currentSR = parseInt(savedSR);
-          updateDisplay();
+  const savedSR = localStorage.getItem("sr");
+  if (savedSR !== null) {
+    currentSR = parseInt(savedSR);
+    startingSR = parseInt(savedSR); 
 
-          document.getElementById("setSRSection").classList.add("hidden");
-          document.getElementById("adjustSRSection").classList.remove("hidden");
-          document.getElementById("rankDisplay").classList.remove("hidden");
-        }
-      };
+    totalSRGained = 0;
+    updateDisplay();
+
+    document.getElementById("setSRSection").classList.add("hidden");
+    document.getElementById("adjustSRSection").classList.remove("hidden");
+    document.getElementById("rankDisplay").classList.remove("hidden");
+    document.getElementById("progressContainer").classList.remove("hidden");
+    document.getElementById("progressText").classList.remove("hidden");
+    document.getElementById("resetButton").classList.remove("hidden");
+    document.getElementById("totalSRDisplay").textContent = `Total SR Gained: 0`;
+  }
+};
     </script>
   </body>
 </html>
