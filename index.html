@@ -68,7 +68,7 @@
     document.getElementById("progressText").classList.remove("hidden");
     document.getElementById("resetButton").classList.remove("hidden");
     document.getElementById("totalSRDisplay").textContent = 'Total SR Gained: 0';
-    
+    document.getElementById("totalSRDisplay").classList.remove("hidden");
   }
 }
 
@@ -96,6 +96,7 @@ function resetTracker() {
   document.getElementById("progressBar").className = 'progress-bar';
   document.getElementById("progressText").textContent = '0 SR to next rank';
   document.getElementById("totalSRDisplay").textContent = 'Total SR Gained: 0';
+  document.getElementById("totalSRDisplay").classList.add("hidden");
 
   // Hide reset button
   document.getElementById("resetButton").classList.add("hidden");
@@ -240,6 +241,7 @@ function getPreviousRankThreshold(sr) {
     document.getElementById("progressText").classList.remove("hidden");
     document.getElementById("resetButton").classList.remove("hidden");
     document.getElementById("totalSRDisplay").textContent = `Total SR Gained: 0`;
+    document.getElementById("totalSRDisplay").classList.remove("hidden");
   }
 };
     </script>
