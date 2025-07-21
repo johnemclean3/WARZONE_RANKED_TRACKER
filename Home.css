@@ -257,4 +257,5 @@ nav img {
     font-size: 12px;
     text-align: center;
     margin-top: 5px;
+    margin-bottom: 5px; /* ✅ Add this line */
 }
