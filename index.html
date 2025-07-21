@@ -43,16 +43,22 @@
           <input type="number" id="changeSR" placeholder="Add or Subtract SR" />
           <button onclick="updateSR()">Update SR</button>
           <button id="resetButton" onclick="resetTracker()" class="hidden">Reset</button>
+          <p id="totalSRDisplay" style="color: white;">Total SR Gained: 0</p>
         </div>
     </section>
 
     <script>
       let currentSR = null;
+      let startingSR = null;
+      let totalSRGained = 0;
 
       function setStartingSR() {
   const sr = parseInt(document.getElementById("startingSR").value);
   if (!isNaN(sr)) {
+    startingSR = sr;
     currentSR = sr;
+    totalSRGained = 0;
+    
     updateDisplay();
     localStorage.setItem("sr", sr);
 
@@ -61,13 +67,16 @@
     document.getElementById("rankDisplay").classList.remove("hidden");
     document.getElementById("progressContainer").classList.remove("hidden");
     document.getElementById("progressText").classList.remove("hidden");
-
     document.getElementById("resetButton").classList.remove("hidden");
+    document.getElementById("totalSRDisplay").textContent = 'Total SR Gained: 0';
+    
   }
 }
 
 function resetTracker() {
+  startingSR = null;
   currentSR = null;
+  totalSRGained = 0;
   localStorage.removeItem("sr");
 
   // Hide elements
@@ -87,6 +96,7 @@ function resetTracker() {
   document.getElementById("progressBar").style.width = '0%';
   document.getElementById("progressBar").className = 'progress-bar';
   document.getElementById("progressText").textContent = '0 SR to next rank';
+  document.getElementById("totalSRDisplay").textContent = 'Total SR Gained: 0';
 
   // Hide reset button
   document.getElementById("resetButton").classList.add("hidden");
@@ -94,10 +104,12 @@ function resetTracker() {
 
       function updateSR() {
         const change = parseInt(document.getElementById("changeSR").value);
-        if (!isNaN(change) && currentSR !== null) {
+        if (!isNaN(change){
           currentSR += change;
+          totalSRGained = currentSR - startingSR;
           updateDisplay();
-          localStorage.setItem("sr", currentSR);
+          document.getElementById("changeSR").value = '';
+          document.getElementById("totalSRDisplay").textContent = 'Total SR Gained: ${totalSRGained}';
         }
       }
 
