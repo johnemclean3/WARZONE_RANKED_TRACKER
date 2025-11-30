@@ -130,6 +130,7 @@ nav img {
 .tracker-container input {
     background-color: #555;
     color: white;
+    font-size: 16px;
 }
 
 .tracker-container button {
