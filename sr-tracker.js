@@ -1,0 +1,225 @@
+// SR tracker logic moved from index.html
+let currentSR = null;
+let startingSR = null;
+let totalSRGained = 0;
+
+function setStartingSR() {
+  const sr = parseInt(document.getElementById("startingSR").value);
+  if (!isNaN(sr)) {
+    startingSR = sr;
+    currentSR = sr;
+    totalSRGained = 0;
+
+    updateDisplay();
+    localStorage.setItem("sr", sr);
+
+    document.getElementById("setSRSection").classList.add("hidden");
+    document.getElementById("adjustSRSection").classList.remove("hidden");
+    document.getElementById("rankDisplay").classList.remove("hidden");
+    document.getElementById("progressContainer").classList.remove("hidden");
+    document.getElementById("progressText").classList.remove("hidden");
+    document.getElementById("resetButton").classList.remove("hidden");
+    document.getElementById("totalSRDisplay").textContent = 'Total SR Gained: 0';
+    document.getElementById("totalSRDisplay").classList.remove("hidden");
+  }
+}
+
+function resetTracker() {
+  startingSR = null;
+  currentSR = null;
+  totalSRGained = 0;
+  localStorage.removeItem("sr");
+
+  // Hide elements
+  document.getElementById("adjustSRSection").classList.add("hidden");
+  document.getElementById("rankDisplay").classList.add("hidden");
+  document.getElementById("progressContainer").classList.add("hidden");
+  document.getElementById("progressText").classList.add("hidden");
+
+  // Show initial SR input
+  document.getElementById("setSRSection").classList.remove("hidden");
+
+  // Clear fields
+  document.getElementById("startingSR").value = '';
+  document.getElementById("changeSR").value = '';
+  document.getElementById("rankName").textContent = 'RANK NAME';
+  document.getElementById("rankSR").textContent = '';
+  document.getElementById("progressBar").style.width = '0%';
+  document.getElementById("progressBar").className = 'progress-bar';
+  document.getElementById("progressText").textContent = '0 SR to next rank';
+  document.getElementById("totalSRDisplay").textContent = 'Total SR Gained: 0';
+  document.getElementById("totalSRDisplay").classList.add("hidden");
+
+  // Hide reset button
+  document.getElementById("resetButton").classList.add("hidden");
+}
+
+function updateSR() {
+  const change = parseInt(document.getElementById("changeSR").value);
+  if (!isNaN(change)){
+    currentSR += change;
+    totalSRGained = currentSR - startingSR;
+    updateDisplay();
+    document.getElementById("changeSR").value = '';
+    document.getElementById("totalSRDisplay").textContent = `Total SR Gained: ${totalSRGained}`;
+  }
+}
+
+function updateDisplay() {
+  const rank = getRank(currentSR);
+  const rankNameElem = document.getElementById("rankName");
+  const rankSRElem = document.getElementById("rankSR");
+
+  rankNameElem.textContent = rank.name.toUpperCase();
+  rankNameElem.className = `rank-name ${rank.class}`;
+  rankSRElem.textContent = currentSR;
+
+  document.getElementById("rankDisplay").classList.remove("hidden");
+
+  // === Progress Bar Logic ===
+  const nextRank = getNextRankThreshold(currentSR);
+  const prevRank = getPreviousRankThreshold(currentSR);
+  const progress = ((currentSR - prevRank.sr) / (nextRank.sr - prevRank.sr)) * 100;
+  const progressBar = document.getElementById("progressBar");
+  const progressText = document.getElementById("progressText");
+  const progressContainer = document.getElementById("progressContainer");
+
+  progressBar.style.width = `${Math.min(progress, 100)}%`;
+  progressBar.className = `progress-bar ${rank.class}`; // applies background color
+
+  progressContainer.classList.remove("hidden");
+
+  const srToNext = Math.max(0, nextRank.sr - currentSR);
+  progressText.textContent = `${srToNext} SR to ${nextRank.name}`;
+  progressText.className = `progress-text`;
+  progressText.classList.remove("hidden");
+}
+
+// Helper to get next rank
+function getNextRankThreshold(sr) {
+  const thresholds = [
+    { sr: 0, name: "Bronze 1" },
+    { sr: 300, name: "Bronze 2" },
+    { sr: 600, name: "Bronze 3" },
+    { sr: 900, name: "Silver 1" },
+    { sr: 1300, name: "Silver 2" },
+    { sr: 1700, name: "Silver 3" },
+    { sr: 2100, name: "Gold 1" },
+    { sr: 2600, name: "Gold 2" },
+    { sr: 3100, name: "Gold 3" },
+    { sr: 3600, name: "Platinum 1" },
+    { sr: 4200, name: "Platinum 2" },
+    { sr: 4800, name: "Platinum 3" },
+    { sr: 5400, name: "Diamond 1" },
+    { sr: 6100, name: "Diamond 2" },
+    { sr: 6800, name: "Diamond 3" },
+    { sr: 7500, name: "Crimson 1" },
+    { sr: 8300, name: "Crimson 2" },
+    { sr: 9100, name: "Crimson 3" },
+    { sr: 10000, name: "Iridescent" }
+  ];
+
+  for (let i = 0; i < thresholds.length; i++) {
+    if (sr < thresholds[i].sr) return thresholds[i];
+  }
+  return { sr: 10000, name: "MAX RANK" };
+}
+
+function getPreviousRankThreshold(sr) {
+  const thresholds = [
+    { sr: 0, name: "Bronze 1" },
+    { sr: 300, name: "Bronze 2" },
+    { sr: 600, name: "Bronze 3" },
+    { sr: 900, name: "Silver 1" },
+    { sr: 1300, name: "Silver 2" },
+    { sr: 1700, name: "Silver 3" },
+    { sr: 2100, name: "Gold 1" },
+    { sr: 2600, name: "Gold 2" },
+    { sr: 3100, name: "Gold 3" },
+    { sr: 3600, name: "Platinum 1" },
+    { sr: 4200, name: "Platinum 2" },
+    { sr: 4800, name: "Platinum 3" },
+    { sr: 5400, name: "Diamond 1" },
+    { sr: 6100, name: "Diamond 2" },
+    { sr: 6800, name: "Diamond 3" },
+    { sr: 7500, name: "Crimson 1" },
+    { sr: 8300, name: "Crimson 2" },
+    { sr: 9100, name: "Crimson 3" },
+    { sr: 10000, name: "Iridescent" }
+  ];
+
+  for (let i = thresholds.length - 1; i >= 0; i--) {
+    if (sr >= thresholds[i].sr) return thresholds[i];
+  }
+  return { sr: 0, name: "Bronze 1" };
+}
+
+function getRank(sr) {
+  if (sr >= 10000) return { name: "Iridescent", class: "iridescent" };
+  if (sr >= 9100) return { name: "Crimson 3", class: "crimson" };
+  if (sr >= 8300) return { name: "Crimson 2", class: "crimson" };
+  if (sr >= 7500) return { name: "Crimson 1", class: "crimson" };
+  if (sr >= 6800) return { name: "Diamond 3", class: "diamond" };
+  if (sr >= 6100) return { name: "Diamond 2", class: "diamond" };
+  if (sr >= 5400) return { name: "Diamond 1", class: "diamond" };
+  if (sr >= 4800) return { name: "Platinum 3", class: "platinum" };
+  if (sr >= 4200) return { name: "Platinum 2", class: "platinum" };
+  if (sr >= 3600) return { name: "Platinum 1", class: "platinum" };
+  if (sr >= 3100) return { name: "Gold 3", class: "gold" };
+  if (sr >= 2600) return { name: "Gold 2", class: "gold" };
+  if (sr >= 2100) return { name: "Gold 1", class: "gold" };
+  if (sr >= 1700) return { name: "Silver 3", class: "silver" };
+  if (sr >= 1300) return { name: "Silver 2", class: "silver" };
+  if (sr >= 900) return { name: "Silver 1", class: "silver" };
+  if (sr >= 600) return { name: "Bronze 3", class: "bronze" };
+  if (sr >= 300) return { name: "Bronze 2", class: "bronze" };
+  return { name: "Bronze 1", class: "bronze" };
+}
+
+window.onload = function () {
+  const savedSR = localStorage.getItem("sr");
+  if (savedSR !== null) {
+    currentSR = parseInt(savedSR);
+    startingSR = parseInt(savedSR);
+
+    totalSRGained = 0;
+    updateDisplay();
+
+    document.getElementById("setSRSection").classList.add("hidden");
+    document.getElementById("adjustSRSection").classList.remove("hidden");
+    document.getElementById("rankDisplay").classList.remove("hidden");
+    document.getElementById("progressContainer").classList.remove("hidden");
+    document.getElementById("progressText").classList.remove("hidden");
+    document.getElementById("resetButton").classList.remove("hidden");
+    document.getElementById("totalSRDisplay").textContent = `Total SR Gained: 0`;
+    document.getElementById("totalSRDisplay").classList.remove("hidden");
+  }
+
+  // autofocus: focus change input if a saved SR exists, otherwise focus starting input
+  const startingInput = document.getElementById("startingSR");
+  const changeInput = document.getElementById("changeSR");
+  if (savedSR !== null) {
+    if (changeInput) changeInput.focus();
+  } else {
+    if (startingInput) startingInput.focus();
+  }
+
+  // allow Enter key to submit the starting SR and change SR inputs
+  if (startingInput) {
+    startingInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        setStartingSR();
+      }
+    });
+  }
+
+  if (changeInput) {
+    changeInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        updateSR();
+      }
+    });
+  }
+};
