@@ -5,24 +5,15 @@
     <link rel="stylesheet" href="Home.css" />
   </head>
   <body>
-    <header class="navbar">
-      <nav>
-        <a href="index.html" class="logo-text">
-          <span class="line1">WARZONE</span>
-          <span class="line2">Ranked Tracker</span>
-        </a>
-      </nav>
-    </header>
-
     <section class="content">
       <div class="tracker-container" id="srTracker">
         <!-- Rank Display -->
         <div id="rankDisplay" class="rank-info hidden">
           <div class="rank-label">RANK</div>
           <h1 id="rankName" class="rank-name">RANK NAME</h1>
-          <div class="sr-row">
-            <span class="sr-tag">SR</span>
-            <span id="rankSR" class="sr-number">0000</span>
+          <div class="sr-box">
+            <span class="sr-box-label">SR</span>
+            <span id="rankSR" class="sr-box-value">6000</span>
           </div>
         </div>
 
@@ -42,7 +33,7 @@
         <div id="adjustSRSection" class="hidden">
           <input type="number" id="changeSR" placeholder="Add or Subtract SR" />
           <button onclick="updateSR()">Update SR</button>
-          <button id="resetButton" onclick="resetTracker()" class="hidden">Reset</button>
+          <button id="resetButton" onclick="resetTracker()" class="hidden">Reset Tracker</button>
         </div>
     </section>
 

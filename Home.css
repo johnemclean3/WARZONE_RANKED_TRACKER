@@ -128,14 +128,24 @@ nav img {
 }
 
 .tracker-container input {
-    background-color: #555;
-    color: white;
-    font-size: 16px;
+    background-color: white;
+    color: black;
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-family: 'Hitmarker Light', sans-serif;
+}
+
+/* Hitmarker Light for Change SR placeholder */
+#changeSR::placeholder {
+  font-family: 'Hitmarker Light', sans-serif;
+  font-weight: 300;
+  color: #9aa0a6;
+  letter-spacing: 1px;
 }
 
 .tracker-container button {
-    background-color: #666666;
-    color: white;
+    background-color: white;
+    color: black;
     font-weight: bold;
     padding: 10px;
     border: none;
@@ -145,7 +155,8 @@ nav img {
 }
 
 .tracker-container button:hover {
-    background-color: #888888;
+    background-color: black;
+    color: white;
 }
 
 #resetButton {
@@ -179,7 +190,7 @@ nav img {
     font-size: 12px;
     color: white;
     letter-spacing: 2px;
-    font-weight: 600;
+    font-family: 'Hitmarker Light', sans-serif;
     margin-bottom: 5px;
 }
 
@@ -221,7 +232,7 @@ nav img {
 .silver { color: #c0c0c0; }
 .gold { color: #ffd700; }
 .platinum { color: #00bfff; }
-.diamond { color: #b9f2ff; }
+.diamond { color: #3090dc; }
 .crimson { color: #dc143c; }
 .iridescent { color: #ad00ff; }
 
@@ -247,16 +258,179 @@ nav img {
     .progress-bar.silver { background-color: #c0c0c0; }
     .progress-bar.gold { background-color: #ffd700; }
     .progress-bar.platinum { background-color: #00bfff; }
-    .progress-bar.diamond { background-color: #b9f2ff; }
+    .progress-bar.diamond { background-color: #3090dc; }
     .progress-bar.crimson { background-color: #dc143c; }
     .progress-bar.iridescent { background-color: #ad00ff; }
 
-/* Progress text below the bar */
+
+/* Page background */
+body {
+  background: #f3f5f7;
+  color: #222;
+}
+
+/* Card container */
+.tracker-container {
+  background: none;
+  box-shadow: none;
+}
+
+.tracker-card {
+  width: 360px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 28px 24px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+  text-align: center;
+}
+
+/* Header */
+.tracker-title {
+  font-family: 'Hitmarker Black', sans-serif;
+  font-size: 28px;
+  letter-spacing: 2px;
+}
+
+.tracker-subtitle {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 24px;
+}
+
+/* Rank */
+.rank-label {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: black ;
+}
+
+.rank-name {
+  font-size: 40px;
+  margin: 8px 0 12px;
+}
+
+/* SR pill */
+.sr-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #eef1f4;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-family: 'Hitmarker Black', sans-serif;
+}
+
+.sr-pill-label {
+  background: #222;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.sr-pill-value {
+  font-size: 16px;
+}
+
+/* Progress bar */
+.progress-container {
+  height: 12px;
+  background: #ccd1d6;
+  border-radius: 999px;
+  margin: 18px 0 8px;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 999px;
+}
+
+/* Progress text */
 .progress-text {
-    font-family: 'Hitmarker Black', sans-serif;
-    letter-spacing: 2px;
-    font-size: 12px;
-    text-align: center;
-    margin-top: 5px;
-    margin-bottom: 5px; /* ✅ Add this line */
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: black;
+  font-family: 'Hitmarker Light', sans-serif;
+
+}
+
+/* Buttons */
+button {
+ background: white;
+  color: black;
+  font-family: 'Hitmarker Light', sans-serif;
+  letter-spacing: 1px;
+  border: none;
+}
+
+button:hover {
+  background: #f4f6f8;
+}
+
+/* Reset button */
+#resetButton {
+  background: #e53935;
+  color: white;
+  font-family: 'Hitmarker Light', sans-serif;
+  letter-spacing: 1px;
+  border: none;
+}
+
+#resetButton:hover {
+  background: #d32f2f;
+}
+
+/* === WARZONE SR BOX === */
+.sr-box {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.25),
+    0 2px 6px rgba(0,0,0,0.35);
+  font-family: 'Hitmarker Black', sans-serif;
+}
+
+/* SR label (white side) */
+.sr-box-label {
+  background: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  color: #111;
+  padding: 6px 12px;
+  font-size: 16px;
+  letter-spacing: 1px;
+  border-right: 1px solid #bdbdbd;
+}
+
+/* SR value (dark side) */
+.sr-box-value {
+  background: linear-gradient(to bottom, #2e3440, #1f242c);
+  color: #ffffff;
+  padding: 6px 16px;
+  font-size: 18px;
+  min-width: 70px;
+  text-align: center;
+}
+
+/* Add sr-box shadow to inputs, buttons, and progress bar */
+.tracker-container input,
+.tracker-container button,
+.progress-bar {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.25),
+    0 2px 6px rgba(0,0,0,0.35);
+}
+
+/* Remove default focus outline / black border on inputs and buttons */
+.tracker-container input:focus,
+.tracker-container button:focus,
+input:focus,
+button:focus {
+  outline: none;
+  border: none;
+  /* keep the same subtle shadow when focused instead of a solid border */
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.25),
+    0 2px 6px rgba(0,0,0,0.35);
 }
