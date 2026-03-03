@@ -73,6 +73,15 @@ body {
   margin: 8px 0 12px;
 }
 
+/* Rank name colors */
+.rank-name.bronze { color: #cd7f32; }
+.rank-name.silver { color: #c0c0c0; }
+.rank-name.gold { color: #ffd700; }
+.rank-name.platinum { color: #00bfff; }
+.rank-name.diamond { color: #3090dc; }
+.rank-name.crimson { color: #dc143c; }
+.rank-name.iridescent { color: #ad00ff; }
+
 /* =====================================================
    SR Box (WARZONE style)
 ===================================================== */
