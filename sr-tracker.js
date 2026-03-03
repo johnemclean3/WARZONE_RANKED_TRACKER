@@ -32,8 +32,13 @@ const RANKS = [
   { sr: 10000, name: "Iridescent", class: "iridescent" }
 ];
 
-// Countdown target (PT)
-const TARGET_DATE_PT = new Date("2026-03-12T09:00:00-07:00");
+// =======================
+// COUNTDOWN TARGET (UTC)
+// 9:00 AM PT on March 12, 2026
+// PT is UTC-7 on this date → 16:00 UTC
+// =======================
+const TARGET_DATE_UTC = Date.UTC(2026, 2, 12, 16, 0, 0);
+// month is 0-based → 2 = March
 
 // =======================
 // DOM CACHE
@@ -120,7 +125,8 @@ function updateDisplay() {
   el.progressBar.style.width = `${Math.min(progress, 100)}%`;
   el.progressBar.className = `progress-bar ${rank.class}`;
 
-  el.progressText.textContent = `${Math.max(0, next.sr - currentSR)} SR to ${next.name}`;
+  el.progressText.textContent =
+    `${Math.max(0, next.sr - currentSR)} SR to ${next.name}`;
 }
 
 // =======================
@@ -153,39 +159,35 @@ function showTrackerUI() {
 }
 
 // =======================
-// COUNTDOWN (PT)
+// COUNTDOWN (UTC-SAFE)
 // =======================
-function getCurrentPTDate() {
-  return new Date(
-    new Date().toLocaleString("en-US", {
-      timeZone: "America/Los_Angeles"
-    })
-  );
-}
-
 function startCountdown() {
   if (!el.countdownTimer || !el.countdownText) return;
 
-  if (getCurrentPTDate() >= TARGET_DATE_PT) {
-    el.countdownTimer.classList.add("hidden");
-    return;
-  }
-
-  el.countdownTimer.classList.remove("hidden");
-
   const pad = n => String(n).padStart(2, "0");
 
-  setInterval(() => {
-    const diff = TARGET_DATE_PT - getCurrentPTDate();
-    if (diff <= 0) return el.countdownTimer.classList.add("hidden");
+  const tick = () => {
+    const now = Date.now();               // UTC
+    const diff = TARGET_DATE_UTC - now;   // ms
+
+    if (diff <= 0) {
+      el.countdownTimer.classList.add("hidden");
+      return;
+    }
+
+    el.countdownTimer.classList.remove("hidden");
 
     const d = Math.floor(diff / 86400000);
     const h = Math.floor((diff / 3600000) % 24);
     const m = Math.floor((diff / 60000) % 60);
     const s = Math.floor((diff / 1000) % 60);
 
-    el.countdownText.textContent = `${d}D ${pad(h)}H ${pad(m)}M ${pad(s)}S`;
-  }, 1000);
+    el.countdownText.textContent =
+      `${d}D ${pad(h)}H ${pad(m)}M ${pad(s)}S`;
+  };
+
+  tick();               // run immediately
+  setInterval(tick, 1000);
 }
 
 // =======================
