@@ -206,6 +206,7 @@ button:focus {
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #777;
+  color: #e00d0d;
   text-align: center;
 }
 .countdown-label {
@@ -214,5 +215,6 @@ button:focus {
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #e00d0d;
+  color: #777;
   margin-bottom: 4px;
 }
