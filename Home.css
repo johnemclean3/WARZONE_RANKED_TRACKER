@@ -227,3 +227,12 @@ button:focus {
   color: #777;
   margin-bottom: 4px;
 }
+
+.sr-per-day{
+  margin-top: 6px;
+  font-family: 'Hitmarker Light', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #777;
+}

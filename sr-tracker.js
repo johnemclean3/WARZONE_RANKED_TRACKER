@@ -57,7 +57,9 @@ const el = {
   resetButton: document.getElementById("resetButton"),
   totalSRDisplay: document.getElementById("totalSRDisplay"),
   countdownTimer: document.getElementById("countdownTimer"),
-  countdownText: document.getElementById("countdownText")
+  countdownText: document.getElementById("countdownText"),
+  srPerDayText: document.getElementById("srPerDayText")
+  
 };
 
 // =======================
@@ -162,7 +164,7 @@ function showTrackerUI() {
 // COUNTDOWN (UTC-SAFE)
 // =======================
 function startCountdown() {
-  if (!el.countdownTimer || !el.countdownText) return;
+  if (!el.countdownTimer || !el.countdownText || !el.srPerDayText) return;
 
   const pad = n => String(n).padStart(2, "0");
 
@@ -172,21 +174,44 @@ function startCountdown() {
 
     if (diff <= 0) {
       el.countdownTimer.classList.add("hidden");
+      el.srPerDayText.textContent = "";
       return;
     }
 
     el.countdownTimer.classList.remove("hidden");
 
-    const d = Math.floor(diff / 86400000);
+    // ---- TIME BREAKDOWN ----
+    const totalDays = diff / 86400000; // fractional days
+    const d = Math.floor(totalDays);
     const h = Math.floor((diff / 3600000) % 24);
     const m = Math.floor((diff / 60000) % 60);
     const s = Math.floor((diff / 1000) % 60);
 
     el.countdownText.textContent =
       `${d}D ${pad(h)}H ${pad(m)}M ${pad(s)}S`;
+
+    // ---- SR PER DAY ----
+    if (currentSR === null) {
+      el.srPerDayText.textContent = "";
+      return;
+    }
+
+    const next = getNextRank(currentSR);
+    const remainingSR = next.sr - currentSR;
+
+    if (remainingSR <= 0) {
+      el.srPerDayText.textContent =
+        ` `;
+      return;
+    }
+
+    const srPerDay = Math.ceil(remainingSR / totalDays);
+
+    el.srPerDayText.textContent =
+      `SR needed per day to reach ${next.name}: ${srPerDay}`;
   };
 
-  tick();               // run immediately
+  tick();
   setInterval(tick, 1000);
 }
 
