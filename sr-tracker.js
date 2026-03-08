@@ -37,8 +37,8 @@ const RANKS = [
 // 9:00 AM PT on March 12, 2026
 // PT is UTC-7 on this date → 17:00 UTC
 // =======================
-const TARGET_DATE_UTC = Date.UTC(2026, 2, 12, 17, 0, 0);
-// month is 0-based → 2 = March
+const TARGET_DATE_UTC = Date.UTC(2026, 3, 2, 17, 0, 0);
+// month is 0-based → 3 = April
 
 // =======================
 // DOM CACHE
@@ -207,8 +207,8 @@ function startCountdown() {
 
     const srPerDay = Math.ceil(remainingSR / totalDays);
 
-    el.srPerDayText.textContent =
-      `SR needed per day to reach ${next.name}: ${srPerDay}`;
+    el.srPerDayText.innerHTML =
+      `SR needed per day to reach ${next.name}: <span class="sr-number">${srPerDay}</span>`;
   };
 
   tick();

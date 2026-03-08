@@ -236,3 +236,7 @@ button:focus {
   text-transform: uppercase;
   color: #777;
 }
+
+.sr-number {
+  color: #e00d0d;
+}
