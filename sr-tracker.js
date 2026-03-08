@@ -72,7 +72,9 @@ function setStartingSR() {
   startingSR = currentSR = sr;
   totalSRGained = 0;
 
-  localStorage.setItem(STORAGE_KEY, sr);
+  localStorage.setItem("startingSR", startingSR);
+  localStorage.setItem("currentSR", currentSR);
+
   updateDisplay();
   showTrackerUI();
 }
@@ -84,6 +86,10 @@ function updateSR() {
   currentSR += change;
   totalSRGained = currentSR - startingSR;
 
+  // Save updated values
+  localStorage.setItem("startingSR", startingSR);
+  localStorage.setItem("currentSR", currentSR);
+
   el.changeSR.value = "";
   el.totalSRDisplay.textContent = `Total SR Gained: ${totalSRGained}`;
 
@@ -92,7 +98,10 @@ function updateSR() {
 
 function resetTracker() {
   currentSR = startingSR = totalSRGained = null;
-  localStorage.removeItem(STORAGE_KEY);
+
+  // Clear all stored SR data
+  localStorage.removeItem("startingSR");
+  localStorage.removeItem("currentSR");
 
   el.startingSR.value = "";
   el.changeSR.value = "";
@@ -219,10 +228,14 @@ function startCountdown() {
 // INIT
 // =======================
 window.onload = () => {
-  const savedSR = localStorage.getItem(STORAGE_KEY);
-  if (savedSR !== null) {
-    startingSR = currentSR = parseInt(savedSR);
-    totalSRGained = 0;
+  const savedStartingSR = localStorage.getItem("startingSR");
+  const savedCurrentSR = localStorage.getItem("currentSR");
+
+  if (savedCurrentSR !== null) {
+    startingSR = parseInt(savedStartingSR);
+    currentSR = parseInt(savedCurrentSR);
+    totalSRGained = currentSR - startingSR;
+
     updateDisplay();
     showTrackerUI();
     el.changeSR.focus();
