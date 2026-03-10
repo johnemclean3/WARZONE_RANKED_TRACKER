@@ -72,7 +72,6 @@ function setStartingSR() {
   startingSR = currentSR = sr;
   totalSRGained = 0;
 
-  localStorage.setItem("startingSR", startingSR);
   localStorage.setItem("currentSR", currentSR);
 
   updateDisplay();
@@ -87,7 +86,6 @@ function updateSR() {
   totalSRGained = currentSR - startingSR;
 
   // Save updated values
-  localStorage.setItem("startingSR", startingSR);
   localStorage.setItem("currentSR", currentSR);
 
   el.changeSR.value = "";
@@ -100,7 +98,6 @@ function resetTracker() {
   currentSR = startingSR = totalSRGained = null;
 
   // Clear all stored SR data
-  localStorage.removeItem("startingSR");
   localStorage.removeItem("currentSR");
 
   el.startingSR.value = "";
@@ -130,8 +127,8 @@ function updateDisplay() {
   el.rankName.className = `rank-name ${rank.class}`;
   el.rankSR.textContent = currentSR;
 
-  const progress =
-    ((currentSR - prev.sr) / (next.sr - prev.sr)) * 100;
+  const range = next.sr - prev.sr;
+  const progress = range === 0 ? 100 : ((currentSR - prev.sr) / range) * 100;
 
   el.progressBar.style.width = `${Math.min(progress, 100)}%`;
   el.progressBar.className = `progress-bar ${rank.class}`;
@@ -228,13 +225,14 @@ function startCountdown() {
 // INIT
 // =======================
 window.onload = () => {
-  const savedStartingSR = localStorage.getItem("startingSR");
-  const savedCurrentSR = localStorage.getItem("currentSR");
+const savedCurrentSR = localStorage.getItem("currentSR");
 
-  if (savedCurrentSR !== null) {
-    startingSR = parseInt(savedStartingSR);
-    currentSR = parseInt(savedCurrentSR);
-    totalSRGained = currentSR - startingSR;
+if (savedCurrentSR !== null) {
+  currentSR = parseInt(savedCurrentSR);
+
+  // Reset session tracking
+  startingSR = currentSR;
+  totalSRGained = 0;
 
     updateDisplay();
     showTrackerUI();
