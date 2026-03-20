@@ -8,7 +8,7 @@ let totalSRGained = 0;
 // =======================
 // CONSTANTS
 // =======================
-const STORAGE_KEY = "sr";
+const STORAGE_KEY = "warzone_currentSR";
 
 const RANKS = [
   { sr: 0, name: "Bronze 1", class: "bronze" },
@@ -72,7 +72,7 @@ function setStartingSR() {
   startingSR = currentSR = sr;
   totalSRGained = 0;
 
-  localStorage.setItem("currentSR", currentSR);
+  localStorage.setItem(STORAGE_KEY, currentSR);
 
   updateDisplay();
   showTrackerUI();
@@ -98,7 +98,7 @@ function resetTracker() {
   currentSR = startingSR = totalSRGained = null;
 
   // Clear all stored SR data
-  localStorage.removeItem("currentSR");
+  localStorage.removeItem(STORAGE_KEY);
 
   el.startingSR.value = "";
   el.changeSR.value = "";
@@ -225,7 +225,7 @@ function startCountdown() {
 // INIT
 // =======================
 window.onload = () => {
-const savedCurrentSR = localStorage.getItem("currentSR");
+const savedCurrentSR = localStorage.getItem(STORAGE_KEY);
 
 if (savedCurrentSR !== null) {
   currentSR = parseInt(savedCurrentSR);
