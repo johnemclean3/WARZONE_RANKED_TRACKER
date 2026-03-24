@@ -37,7 +37,7 @@ const RANKS = [
 // 9:00 AM PT on March 12, 2026
 // PT is UTC-7 on this date → 16:00 UTC
 // =======================
-const TARGET_DATE_UTC = Date.UTC(2026, 3, 2, 16, 0, 0);
+const TARGET_DATE_UTC = Date.UTC(2026, 2, 26, 16, 0, 0);
 // month is 0-based → 3 = April
 
 // =======================
