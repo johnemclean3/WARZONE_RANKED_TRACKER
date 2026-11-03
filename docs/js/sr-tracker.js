@@ -173,7 +173,7 @@ function applyTheme(isDark) {
   document.documentElement.dataset.theme = isDark ? "dark" : "light";
   if (el.themeToggle) el.themeToggle.checked = isDark;
   if (el.themeToggleLabel) {
-    el.themeToggleLabel.textContent = isDark ? "Light mode" : "Dark mode";
+    el.themeToggleLabel.textContent = isDark ? "Dark mode" : "Light mode";
   }
 }
 
