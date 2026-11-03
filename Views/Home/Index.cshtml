@@ -1,0 +1,63 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Ranked Tracker";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/Home.css" />
+</head>
+
+<body>
+    <section class="content">
+        <div class="tracker-container" id="srTracker">
+            <div id="rankDisplay" class="rank-info hidden">
+                <div class="rank-label">RANK</div>
+                <h1 id="rankName" class="rank-name">RANK NAME</h1>
+
+                <div class="sr-box">
+                    <span class="sr-box-label">SR</span>
+                    <span id="rankSR" class="sr-box-value">6000</span>
+                </div>
+            </div>
+
+            <div id="progressContainer" class="progress-container hidden">
+                <div id="progressBar" class="progress-bar"></div>
+            </div>
+
+            <div id="progressText" class="progress-text hidden">
+                0 SR to next rank
+            </div>
+
+            <div id="totalSRDisplay" class="progress-text hidden">
+                Total SR Gained: 0
+            </div>
+
+            <div id="setSRSection">
+                <input type="number" id="startingSR" placeholder="Enter Starting SR" />
+                <button onclick="setStartingSR()">Set Starting SR</button>
+            </div>
+
+            <div id="adjustSRSection" class="hidden">
+                <input type="number" id="changeSR" placeholder="Add or Subtract SR" />
+                <button onclick="updateSR()">Update SR</button>
+                <button id="resetButton" class="hidden" onclick="resetTracker()">
+                    Reset Tracker
+                </button>
+            </div>
+
+            <div id="countdownTimer" class="countdown hidden">
+                <div class="countdown-label">SEASON 3 DEPLOYS IN</div>
+                <span id="countdownText">Loading countdown…</span>
+                <div class="sr-per-day" id="srPerDayText"></div>
+            </div>
+        </div>
+    </section>
+
+    <script src="~/js/sr-tracker.js"></script>
+</body>
+
+</html>

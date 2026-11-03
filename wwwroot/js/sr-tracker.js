@@ -86,7 +86,7 @@ function updateSR() {
   totalSRGained = currentSR - startingSR;
 
   // Save updated values
-  localStorage.setItem("currentSR", currentSR);
+  localStorage.setItem(STORAGE_KEY, currentSR);
 
   el.changeSR.value = "";
   el.totalSRDisplay.textContent = `Total SR Gained: ${totalSRGained}`;
