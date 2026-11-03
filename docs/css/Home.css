@@ -26,15 +26,126 @@ html, body {
   -webkit-text-size-adjust: 100%;
 }
 
+:root {
+  color-scheme: light;
+  --page-bg: #f3f5f7;
+  --text-color: #222;
+  --muted-color: #777;
+  --input-bg: #fff;
+  --input-text: #222;
+  --input-placeholder: #9aa0a6;
+  --button-bg: #fff;
+  --button-hover: #f4f6f8;
+  --sr-label-top: #fff;
+  --sr-label-bottom: #e6e6e6;
+  --sr-label-text: #111;
+  --sr-label-border: #bdbdbd;
+  --progress-track: #ccd1d6;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page-bg: #15191e;
+  --text-color: #edf1f4;
+  --muted-color: #a4adb6;
+  --input-bg: #252c33;
+  --input-text: #edf1f4;
+  --input-placeholder: #98a2ac;
+  --button-bg: #252c33;
+  --button-hover: #343e48;
+  --sr-label-top: #424b55;
+  --sr-label-bottom: #2d343b;
+  --sr-label-text: #f2f4f5;
+  --sr-label-border: #20262c;
+  --progress-track: #343d46;
+}
+
 body {
-  background: #f3f5f7;
-  color: #222;
+  background: var(--page-bg);
+  color: var(--text-color);
   font-family: Arial, sans-serif;
+  transition: background-color 180ms ease, color 180ms ease;
 }
 
 /* Utility */
 .hidden {
   display: none;
+}
+
+.theme-control {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 1;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px 8px 13px;
+  border: 1px solid rgba(34, 45, 54, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 6px 20px rgba(27, 39, 49, 0.12);
+  backdrop-filter: blur(12px);
+  color: var(--text-color);
+}
+
+:root[data-theme="dark"] .theme-control {
+  border-color: rgba(221, 231, 239, 0.14);
+  background: rgba(34, 41, 48, 0.92);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+}
+
+.theme-control input {
+  appearance: none;
+  position: relative;
+  width: 44px;
+  min-width: 44px;
+  height: 24px;
+  margin: 0;
+  border: 1px solid #b8c2cb;
+  border-radius: 999px;
+  background: #d3dbe2;
+  cursor: pointer;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+.theme-control input::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(17, 26, 34, 0.3);
+  transition: transform 180ms ease;
+}
+
+.theme-control input:checked {
+  border-color: #287ec2;
+  background: #3090dc;
+}
+
+.theme-control input:checked::before {
+  transform: translateX(20px);
+}
+
+.theme-control input:focus-visible {
+  outline: 3px solid rgba(48, 144, 220, 0.4);
+  outline-offset: 3px;
+}
+
+.theme-control label {
+  cursor: pointer;
+  color: var(--text-color);
+  font-family: 'Hitmarker Black', sans-serif;
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+  user-select: none;
 }
 
 /* =====================================================
@@ -70,7 +181,7 @@ body {
   font-size: 12px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #777;
+  color: var(--muted-color);
 }
 
 .rank-name {
@@ -103,12 +214,12 @@ body {
 }
 
 .sr-box-label {
-  background: linear-gradient(to bottom, #ffffff, #e6e6e6);
-  color: #111;
+  background: linear-gradient(to bottom, var(--sr-label-top), var(--sr-label-bottom));
+  color: var(--sr-label-text);
   padding: 6px 12px;
   font-size: 16px;
   letter-spacing: 1px;
-  border-right: 1px solid #bdbdbd;
+  border-right: 1px solid var(--sr-label-border);
 }
 
 .sr-box-value {
@@ -139,24 +250,24 @@ body {
 }
 
 .tracker-container input {
-  background: #ffffff;
-  color: #222;
+  background: var(--input-bg);
+  color: var(--input-text);
 }
 
 .tracker-container input::placeholder {
-  color: #9aa0a6;
+  color: var(--input-placeholder);
   font-family: 'Hitmarker Light', sans-serif;
 }
 
 /* Buttons */
 .tracker-container button {
-  background: #ffffff;
-  color: #222;
+  background: var(--button-bg);
+  color: var(--input-text);
   cursor: pointer;
 }
 
 .tracker-container button:hover {
-  background: #f4f6f8;
+  background: var(--button-hover);
 }
 
 /* Reset Button */
@@ -180,7 +291,7 @@ button:focus {
 ===================================================== */
 .progress-container {
   height: 12px;
-  background: #ccd1d6;
+  background: var(--progress-track);
   border-radius: 999px;
   margin: 18px 0 8px;
   overflow: hidden;
@@ -208,7 +319,7 @@ button:focus {
   font-size: 12px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #777;
+  color: var(--muted-color);
 }
 
 /* =====================================================
@@ -220,7 +331,7 @@ button:focus {
   font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #777;
+  color: var(--muted-color);
   color: #e00d0d;
   text-align: center;
 }
@@ -230,7 +341,7 @@ button:focus {
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #e00d0d;
-  color: #777;
+  color: var(--muted-color);
   margin-bottom: 4px;
 }
 
@@ -240,7 +351,7 @@ button:focus {
   font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #777;
+  color: var(--muted-color);
 }
 
 .sr-number {

@@ -9,6 +9,7 @@ let totalSRGained = 0;
 // CONSTANTS
 // =======================
 const STORAGE_KEY = "warzone_currentSR";
+const THEME_STORAGE_KEY = "warzone_theme";
 
 const RANKS = [
   { sr: 0, name: "Bronze 1", class: "bronze" },
@@ -58,7 +59,9 @@ const el = {
   totalSRDisplay: document.getElementById("totalSRDisplay"),
   countdownTimer: document.getElementById("countdownTimer"),
   countdownText: document.getElementById("countdownText"),
-  srPerDayText: document.getElementById("srPerDayText")
+  srPerDayText: document.getElementById("srPerDayText"),
+  themeToggle: document.getElementById("themeToggle"),
+  themeToggleLabel: document.querySelector('label[for="themeToggle"]')
   
 };
 
@@ -166,6 +169,14 @@ function showTrackerUI() {
   el.totalSRDisplay.textContent = "Total SR Gained: 0";
 }
 
+function applyTheme(isDark) {
+  document.documentElement.dataset.theme = isDark ? "dark" : "light";
+  if (el.themeToggle) el.themeToggle.checked = isDark;
+  if (el.themeToggleLabel) {
+    el.themeToggleLabel.textContent = isDark ? "Dark mode" : "Light mode";
+  }
+}
+
 // =======================
 // COUNTDOWN (UTC-SAFE)
 // =======================
@@ -225,6 +236,13 @@ function startCountdown() {
 // INIT
 // =======================
 window.onload = () => {
+  applyTheme(localStorage.getItem(THEME_STORAGE_KEY) === "dark");
+  el.themeToggle?.addEventListener("change", () => {
+    const isDark = el.themeToggle.checked;
+    applyTheme(isDark);
+    localStorage.setItem(THEME_STORAGE_KEY, isDark ? "dark" : "light");
+  });
+
 const savedCurrentSR = localStorage.getItem(STORAGE_KEY);
 
 if (savedCurrentSR !== null) {

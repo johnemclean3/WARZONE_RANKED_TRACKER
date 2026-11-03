@@ -8,10 +8,22 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
+    <script>
+            try {
+                if (localStorage.getItem("warzone_theme") === "dark") {
+                    document.documentElement.dataset.theme = "dark";
+                }
+            } catch { }
+    </script>
     <link rel="stylesheet" href="~/css/Home.css" />
 </head>
 
 <body>
+    <div class="theme-control">
+        <input type="checkbox" id="themeToggle" role="switch" />
+        <label for="themeToggle">Dark mode</label>
+    </div>
+
     <section class="content">
         <div class="tracker-container" id="srTracker">
             <div id="rankDisplay" class="rank-info hidden">
