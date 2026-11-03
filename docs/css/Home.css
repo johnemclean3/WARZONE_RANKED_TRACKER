@@ -140,9 +140,10 @@ body {
 .theme-control label {
   cursor: pointer;
   color: var(--text-color);
-  font-family: 'Hitmarker Black', sans-serif;
-  font-size: 11px;
-  font-weight: 900;
+  font-family: 'Hitmarker Light', sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-weight: 800;
   line-height: 1;
   text-transform: uppercase;
   user-select: none;
@@ -179,7 +180,7 @@ body {
 .rank-label {
   font-family: 'Hitmarker Light', sans-serif;
   font-size: 12px;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--muted-color);
 }
@@ -317,7 +318,7 @@ button:focus {
 .progress-text {
   font-family: 'Hitmarker Light', sans-serif;
   font-size: 12px;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--muted-color);
 }
@@ -329,7 +330,7 @@ button:focus {
   margin-top: 10px;
   font-family: 'Hitmarker Light', sans-serif;
   font-size: 11px;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--muted-color);
   color: #e00d0d;
@@ -338,7 +339,7 @@ button:focus {
 .countdown-label {
   font-family: 'Hitmarker Light', sans-serif;
   font-size: 11px;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   color: #e00d0d;
   color: var(--muted-color);
@@ -349,7 +350,7 @@ button:focus {
   margin-top: 6px;
   font-family: 'Hitmarker Light', sans-serif;
   font-size: 11px;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--muted-color);
 }
